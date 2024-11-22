@@ -1,15 +1,17 @@
+package SRC;
+
 
 /**
  *
  * @author alex
  */
-public class ProductOnSale implements ProductInterface{
+public class DiscountedProduct implements ProductInterface{
     private int productID;
     private double price;
     private String productName;
     private int discount;
     
-    public ProductOnSale(String productName, double price, int discount ){
+    public DiscountedProduct(String productName, double price, int discount ){
         this.productName = productName;
         this.price = calculateDiscountedPrice(price, discount);
         //productID is hascode of both name and price
