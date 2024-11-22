@@ -6,34 +6,49 @@ import java.util.ArrayList;
  *
  * @author alex
  */
-public class ProductBundle implements ProductInterface{
+public class ProductBundle extends Product{
     private ArrayList<Product> productsInBundle = new ArrayList<>();
-    public ProductBundle(){
-
+    private String bundleName;
+    public ProductBundle(String bundleName){
+        super();
+        this.bundleName = bundleName;
     }
     void add(Product product){
-        
+        productsInBundle.add(product);
+    }
+    String getBundleName(){
+        return bundleName;
     }
     void remove(Product product){
-        
+        if(productsInBundle.isEmpty()){
+            System.out.println("Error");
+        }else{
+            System.out.println("Removing");
+            //tbi
+        }
     }
-    double getTotalPrice(){
-        return 0.0;
+    public double getPrice(){
+        double total = 0;
+        for(Product current: productsInBundle){
+            total += current.getPrice();
+        }
+
+        return total;
     }
-    String getTotalProductInfo(){
-        return "hi";
-    }
-    String getTotalName(){
-        return "HI";
+    
+    public String getName(){
+        StringBuilder sb = new StringBuilder();
+        sb.append(this.getBundleName()+" { ");
+        for(Product current: productsInBundle){
+            sb.append(current.getName()+", ");
+        }
+        sb.delete(sb.length()-2, sb.length());
+        sb.append("}");
+       
+        return sb.toString();
     }
 
-    String getProductInfo(){
-        
-    }
-    double getPrice(){
-
-    }
-    String getName(){
-
+    public String getProductInfo() {
+        return this.toString();
     }
 }

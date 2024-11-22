@@ -13,6 +13,9 @@ public class Product implements ProductInterface{
         this.price = price;
         //productID is hascode of both name and price
     }
+    public Product(){
+        
+    }
     @Override
     public String getProductInfo() {
         return this.toString();
