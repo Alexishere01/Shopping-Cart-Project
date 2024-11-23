@@ -1,11 +1,11 @@
-package SRC;
+package src;
 
 
 /**
  *
  * @author alex
  */
-public class DiscountedProduct implements ProductInterface{
+public class DiscountedProduct extends Product{
     private int productID;
     private double price;
     private String productName;
@@ -28,7 +28,7 @@ public class DiscountedProduct implements ProductInterface{
     }
     @Override
     public double getPrice() {
-        return price;
+        return price-discount;
     }
 
     @Override

@@ -1,4 +1,4 @@
-package SRC;
+package src;
 
 /**
  *
@@ -14,7 +14,7 @@ public class Product implements ProductInterface{
         //productID is hascode of both name and price
     }
     public Product(){
-        
+
     }
     @Override
     public String getProductInfo() {
