@@ -6,12 +6,12 @@ import java.util.ArrayList;
  * @author alex
  */
 public class Warehouse {
-    private ArrayList<Inventory> inventories = new ArrayList<>();
+    private ArrayList<Inventory> warehouse = new ArrayList<>();
     public Warehouse(){
 
     }
-    void addInventory(){
-        
+    void addInventory(Inventory inventory){
+        warehouse.add(inventory);
     }
     void removeInventory(){
         

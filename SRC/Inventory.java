@@ -1,9 +1,10 @@
 package src;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
-public class Inventory {
+public class Inventory implements Iterable {
     private Map<Product, Integer> inventory = new HashMap<>();
     public Inventory(){
 
@@ -38,6 +39,10 @@ public class Inventory {
     }
     Product getAvailableProducts(){
         return new Product(null, 0);
+    }
+    @Override
+    public Iterator iterator() {
+        
     }
     
 
