@@ -41,10 +41,9 @@ public class Inventory implements Iterable {
         return new Product(null, 0);
     }
     @Override
-    public Iterator iterator() {
-        
+    public Iterator<Map.Entry<Product, Integer>> iterator() {
+        return inventory.entrySet().iterator();
     }
-    
 
 
 }
