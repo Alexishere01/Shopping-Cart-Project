@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-public class Inventory implements Iterable {
+public class Inventory implements Iterable<Map.Entry<Product, Integer>> {
     private Map<Product, Integer> inventory = new HashMap<>();
     public Inventory(){
 
@@ -31,7 +31,11 @@ public class Inventory implements Iterable {
         return sb.toString();
     }
     void removeProduct(Product product){
-
+        if(inventory.isEmpty()){
+            //is empty
+        }else{
+            inventory.remove(product);
+        }
     }
 
     boolean checkAvailability(Product product){
@@ -44,6 +48,7 @@ public class Inventory implements Iterable {
     public Iterator<Map.Entry<Product, Integer>> iterator() {
         return inventory.entrySet().iterator();
     }
+    
 
 
 }

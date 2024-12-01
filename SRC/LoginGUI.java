@@ -68,6 +68,13 @@ public class LoginGUI {
         gbc.gridy = 2;
         gbc.anchor = GridBagConstraints.CENTER;
         panel.add(loginButton, gbc);
+        
+        //Create Account Button
+        JButton createAccountButton = new JButton("Create Account");
+        gbc.gridx = 2;
+        gbc.gridy = 2;
+        gbc.anchor = GridBagConstraints.CENTER;
+        panel.add(createAccountButton, gbc);
 
         // Add action listener to the login button
         loginButton.addActionListener(new ActionListener() {

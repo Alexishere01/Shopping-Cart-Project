@@ -39,7 +39,7 @@ public class ProductTable {
         // example rows to add onto later with the actual products that we add
         addProduct("Product1", "Description1", 10.0, 5);
         addProduct("Product2", "Description2", 20.0, 3);
-
+        
         scrollPane = new JScrollPane(table);
 
         scrollPane.setPreferredSize(new java.awt.Dimension(550, 200));
