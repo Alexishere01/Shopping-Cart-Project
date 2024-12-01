@@ -1,22 +1,26 @@
 package src;
 
-import java.util.Arrays;
+import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * User.java
  *
  * Handles authentication & logging in, as well as stores users
- *
  */
-public class User {
+public class User implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private String username;
     private String password;
 
-    private static final List<User> VALID_USERS = Arrays.asList(
-            new User("seller", "123"),
-            new User("customer", "123")
-    );
+    private static List<User> VALID_USERS = new ArrayList<>();
+
+    static {
+        // Load existing users from file
+        loadUsers();
+    }
 
     /**
      * Creates a new User with the specified username and password
@@ -24,7 +28,7 @@ public class User {
      * @param username the username of the user
      * @param password the password of the user
      */
-    public User(String username, String password){
+    public User(String username, String password) {
         this.username = username;
         this.password = password;
     }
@@ -78,5 +82,39 @@ public class User {
             }
         }
         return null;
+    }
+
+    /**
+     * Adds a new user to the list of valid users and saves it to the file.
+     *
+     * @param user the new user to add
+     */
+    public static void addUser(User user) {
+        VALID_USERS.add(user);
+        saveUsers();
+    }
+
+    /**
+     * Loads users from the users.dat file.
+     */
+    private static void loadUsers() {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("users.dat"))) {
+            VALID_USERS = (List<User>) ois.readObject();
+        } catch (FileNotFoundException e) {
+            System.out.println("No existing users file found. Starting with an empty user list.");
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Saves users to the users.dat file.
+     */
+    private static void saveUsers() {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("users.dat"))) {
+            oos.writeObject(VALID_USERS);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

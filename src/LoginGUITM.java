@@ -8,6 +8,7 @@ public class LoginGUITM extends AbstractLogin {
     private JTextField userField;
     private JPasswordField passField;
     private User authenticatedUser;
+    private CreateAccountGUI createAccountGUI;
 
     public LoginGUITM() {
         createAndShowLoginGUI();
@@ -54,23 +55,32 @@ public class LoginGUITM extends AbstractLogin {
         gbc.gridy = 2;
         panel.add(loginButton, gbc);
 
-        //Create Account Button
+        // Create Account Button
         JButton createAccountButton = new JButton("Create Account");
         gbc.gridx = 2;
         gbc.gridy = 2;
         gbc.anchor = GridBagConstraints.CENTER;
         panel.add(createAccountButton, gbc);
 
+        // Add action listeners
         loginButton.addActionListener(e -> completeLogin());
-        createAccountButton.addActionListener(e->switchScreen());
+        createAccountButton.addActionListener(e -> switchScreen());
+
         loginFrame.add(panel);
         loginFrame.setVisible(true);
     }
-    void switchScreen(){
-        
+
+    void switchScreen() {
+        loginFrame.setVisible(false);
+        if (createAccountGUI == null) {
+            createAccountGUI = new CreateAccountGUI(this);
+        }
+        createAccountGUI.showScreen();
     }
+
     @Override
     void getUserInput() {
+        System.out.println("Getting User Input...");
         String enteredUser = userField.getText().trim();
         String enteredPass = new String(passField.getPassword()).trim();
         authenticatedUser = User.validateUser(enteredUser, enteredPass);
@@ -78,6 +88,7 @@ public class LoginGUITM extends AbstractLogin {
 
     @Override
     void authenticate() {
+        System.out.println("Authenticating...");
         if (authenticatedUser == null) {
             JOptionPane.showMessageDialog(loginFrame,
                     "Incorrect username or password.",
@@ -88,14 +99,19 @@ public class LoginGUITM extends AbstractLogin {
 
     @Override
     void checkUserType() {
+        System.out.println("Checking User Type...");
         if (authenticatedUser != null) {
-            if ("seller".equals(authenticatedUser.getUsername())) {
+            if (authenticatedUser instanceof Seller) {
                 System.out.println("Hello seller!");
                 new SellerGUI(loginFrame);
-            } else if ("customer".equals(authenticatedUser.getUsername())) {
+            } else if (authenticatedUser instanceof Buyer) {
                 System.out.println("Hello customer!");
                 new CustomerGUI(loginFrame);
             }
         }
+    }
+
+    public void showScreen() {
+        loginFrame.setVisible(true);
     }
 }
