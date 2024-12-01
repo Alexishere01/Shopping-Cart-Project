@@ -20,6 +20,7 @@ public class CustomerGUI {
      * @param loginFrame the login frame to hide
      */
     public CustomerGUI(JFrame loginFrame) {
+        this.warehouse = warehouse.getInstance();
         createAndShowCustomerGUI(loginFrame);
     }
 

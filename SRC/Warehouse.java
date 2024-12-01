@@ -11,7 +11,16 @@ import java.util.Map;
  */
 public class Warehouse {
     private List<Inventory> warehouse = new ArrayList<>();
+    private static Warehouse instancWarehouse;
+    private Warehouse(){
 
+    }
+    public static Warehouse getInstance() {
+        if (instancWarehouse == null) {
+            instancWarehouse = new Warehouse();
+        }
+        return instancWarehouse;
+    }
     public void addInventory(Inventory inventory) {
         warehouse.add(inventory);
     }

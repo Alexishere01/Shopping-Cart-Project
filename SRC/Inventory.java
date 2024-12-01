@@ -2,10 +2,13 @@ package src;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Inventory implements Iterable<Map.Entry<Product, Integer>> {
+public class Inventory implements Serializable, Iterable<Map.Entry<Product, Integer>> {
+      private static final long serialVersionUID = 1L;
     private Map<Product, Integer> inventory = new HashMap<>();
     private transient DefaultTableModel tableModel;
     private transient JTable table;
@@ -54,16 +57,32 @@ public class Inventory implements Iterable<Map.Entry<Product, Integer>> {
         return inventory.getOrDefault(product, 0) > 0;
     }
 
-    // Methods for displaying inventory
     public JScrollPane getScrollPane() {
+        if (scrollPane == null) {
+            initTableComponents();  
+            reloadTableData(); 
+        }
         return scrollPane;
     }
-
+    private void initTableComponents() {
+        String[] columnNames = {"Product Name", "Price", "Quantity"};
+        tableModel = new DefaultTableModel(columnNames, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        table = new JTable(tableModel);
+        scrollPane = new JScrollPane(table);
+    }
     private void addProductToTable(Product product, int quantity) {
         tableModel.addRow(new Object[]{product.getName(), product.getPrice(), quantity});
     }
-
+    
     private void updateTable(Product product) {
+        if (tableModel == null) {
+            initTableComponents();
+        }
         for (int i = 0; i < tableModel.getRowCount(); i++) {
             String productName = (String) tableModel.getValueAt(i, 0);
             if (productName.equals(product.getName())) {
@@ -82,7 +101,11 @@ public class Inventory implements Iterable<Map.Entry<Product, Integer>> {
             }
         }
     }
-
+    private void reloadTableData() {
+        for (Map.Entry<Product, Integer> entry : inventory.entrySet()) {
+            addProductToTable(entry.getKey(), entry.getValue());
+        }
+    }
     @Override
     public java.util.Iterator<Map.Entry<Product, Integer>> iterator() {
         return inventory.entrySet().iterator();
