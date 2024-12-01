@@ -118,14 +118,16 @@ public class User implements Serializable {
         }
     }
     public static void printAllUsers() {
-        loadUsers(); // Load users from file
-    
+        // Ensure we load the latest users from the file
+        loadUsers();
+
         if (VALID_USERS == null || VALID_USERS.isEmpty()) {
             System.out.println("No users found.");
         } else {
             System.out.println("All Users:");
             for (User user : VALID_USERS) {
-                System.out.println("Username: " + user.getUsername() + ", Password: " + user.getPassword());
+                String userType = user instanceof Seller ? "Seller" : "Buyer";
+                System.out.println("Username: " + user.getUsername() + ", Type: " + userType);
             }
         }
     }

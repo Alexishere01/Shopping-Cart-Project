@@ -9,13 +9,15 @@ import java.awt.event.ActionListener;
  * SellerGUI.java
  */
 public class SellerGUI {
+    private Inventory inventory;
     /**
      * Constructs and displays the seller's GUI
      *
      * @param loginFrame the login frame to hide
      */
-    public SellerGUI(JFrame loginFrame) {
-        createAndShowSellerGUI(loginFrame);
+    public SellerGUI(JFrame loginFrame,Seller userSeller ) {
+        createAndShowSellerGUI(loginFrame, userSeller);
+        inventory = userSeller.getInventory();
     }
 
     /**
@@ -23,7 +25,7 @@ public class SellerGUI {
      *
      * @param loginFrame the login frame to hide
      */
-    private void createAndShowSellerGUI(JFrame loginFrame) {
+    private void createAndShowSellerGUI(JFrame loginFrame,Seller userSeller) {
         // Hide the login frame
         loginFrame.setVisible(false);
 
@@ -34,10 +36,13 @@ public class SellerGUI {
         sellerFrame.setLocationRelativeTo(null);
 
         JPanel panel = new JPanel(new BorderLayout());
-
-        ProductTable productTable = new ProductTable();
-        panel.add(productTable.getScrollPane(), BorderLayout.CENTER);
-
+        
+        if (userSeller.getInventory() != null) {
+            panel.add(userSeller.getInventory().getScrollPane(), BorderLayout.CENTER);
+        } else {
+            System.out.println("Error: Inventory is null for seller " + userSeller.getUsername());
+            // Handle the situation if inventory is null (e.g., show a message or create a new inventory)
+        }
         // Create buttons panel
         JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
 

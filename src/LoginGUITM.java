@@ -104,7 +104,7 @@ public class LoginGUITM extends AbstractLogin {
         if (authenticatedUser != null) {
             if (authenticatedUser instanceof Seller) {
                 System.out.println("Hello seller!");
-                new SellerGUI(loginFrame);
+                new SellerGUI(loginFrame, (Seller) authenticatedUser);
             } else if (authenticatedUser instanceof Buyer) {
                 System.out.println("Hello customer!");
                 new CustomerGUI(loginFrame);

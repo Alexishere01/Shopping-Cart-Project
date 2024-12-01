@@ -13,6 +13,7 @@ import java.awt.event.ActionListener;
  *
  */
 public class CustomerGUI {
+    private Warehouse warehouse;
     /**
      * Constructs and displays the customer's GUI
      *
@@ -39,9 +40,9 @@ public class CustomerGUI {
 
         JPanel panel = new JPanel(new BorderLayout());
 
-        // Product Table
-        ProductTable productTable = new ProductTable();
-        panel.add(productTable.getScrollPane(), BorderLayout.CENTER);
+        // Inventory
+        Inventory combinedInventory = warehouse.getCombinedInventory();
+        panel.add(combinedInventory.getScrollPane(), BorderLayout.CENTER);
 
         // Create Buttons panel
         JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));

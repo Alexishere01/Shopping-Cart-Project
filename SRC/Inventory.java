@@ -1,54 +1,100 @@
 package src;
 
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 public class Inventory implements Iterable<Map.Entry<Product, Integer>> {
     private Map<Product, Integer> inventory = new HashMap<>();
-    public Inventory(){
+    private DefaultTableModel tableModel;
+    private JTable table;
+    private JScrollPane scrollPane;
 
-    }
-    void addProduct(Product product, int quantity){
-        inventory.put(product, quantity);
-    }
-    void updateProduct(Product product ,int quantity ){
-        if(inventory.get(product)==null){
-            //Does not exisit
-        }else if (inventory.get(product) >  0){
-            inventory.put(product,quantity);
-        }
-    }
-    public String toString(){
-        StringBuilder sb = new StringBuilder();
-        sb.append("Inventory{ ");
-        for (Map.Entry<Product, Integer> entry : inventory.entrySet()) {
-            String currentProduct= entry.getKey().getName();
-            sb.append("{"+currentProduct+", "+entry.getValue()+"}, ");
-        }
-        sb.delete(sb.length()-2, sb.length());
-        sb.append("}");
-        return sb.toString();
-    }
-    void removeProduct(Product product){
-        if(inventory.isEmpty()){
-            //is empty
-        }else{
-            inventory.remove(product);
-        }
-    }
-
-    boolean checkAvailability(Product product){
-        return false;
-    }
-    Product getAvailableProducts(){
-        return new Product(null, 0);
-    }
-    @Override
-    public Iterator<Map.Entry<Product, Integer>> iterator() {
-        return inventory.entrySet().iterator();
+    public Inventory() {
+        // Initialize JTable for inventory display
+        String[] columnNames = {"Product Name", "Price", "Quantity"};
+        tableModel = new DefaultTableModel(columnNames, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false; // Make cells non-editable
+            }
+        };
+        table = new JTable(tableModel);
+        scrollPane = new JScrollPane(table);
     }
     
+    // Methods for managing inventory
+    public void addProduct(Product product, int quantity) {
+        if (inventory.containsKey(product)) {
+            int currentQuantity = inventory.get(product);
+            inventory.put(product, currentQuantity + quantity);
+            updateTable(product);
+        } else {
+            inventory.put(product, quantity);
+            addProductToTable(product, quantity);
+        }
+    }
 
+    public void updateProduct(Product product, int quantity) {
+        if (inventory.containsKey(product)) {
+            inventory.put(product, quantity);
+            updateTable(product);
+        }
+    }
 
+    public void removeProduct(Product product) {
+        if (inventory.containsKey(product)) {
+            inventory.remove(product);
+            removeProductFromTable(product);
+        }
+    }
+
+    public boolean checkAvailability(Product product) {
+        return inventory.getOrDefault(product, 0) > 0;
+    }
+
+    // Methods for displaying inventory
+    public JScrollPane getScrollPane() {
+        return scrollPane;
+    }
+
+    private void addProductToTable(Product product, int quantity) {
+        tableModel.addRow(new Object[]{product.getName(), product.getPrice(), quantity});
+    }
+
+    private void updateTable(Product product) {
+        for (int i = 0; i < tableModel.getRowCount(); i++) {
+            String productName = (String) tableModel.getValueAt(i, 0);
+            if (productName.equals(product.getName())) {
+                tableModel.setValueAt(inventory.get(product), i, 2);
+                return;
+            }
+        }
+    }
+
+    private void removeProductFromTable(Product product) {
+        for (int i = 0; i < tableModel.getRowCount(); i++) {
+            String productName = (String) tableModel.getValueAt(i, 0);
+            if (productName.equals(product.getName())) {
+                tableModel.removeRow(i);
+                return;
+            }
+        }
+    }
+
+    @Override
+    public java.util.Iterator<Map.Entry<Product, Integer>> iterator() {
+        return inventory.entrySet().iterator();
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Inventory: ");
+        for (Map.Entry<Product, Integer> entry : inventory.entrySet()) {
+            sb.append("{").append(entry.getKey().getName()).append(", ").append(entry.getValue()).append("}, ");
+        }
+        return sb.length() > 2 ? sb.substring(0, sb.length() - 2) : sb.toString();
+    }
 }
