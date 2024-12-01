@@ -12,6 +12,6 @@ public class OOPProject {
     public static void main(String[] args) {
         User.addUser(new Seller("test", "pass"));
         User.printAllUsers();
-        //SwingUtilities.invokeLater(() -> new src.LoginGUITM());
+        SwingUtilities.invokeLater(() -> new src.LoginGUITM());
     }
 }

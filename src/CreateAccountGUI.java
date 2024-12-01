@@ -128,7 +128,7 @@ public class CreateAccountGUI extends AbstractLogin {
             // Redirect to respective GUI or login screen
             if (authenticatedUser instanceof Seller) {
                 System.out.println("Hello seller!");
-                new SellerGUI(createAccountFrame);
+                new SellerGUI(createAccountFrame, (Seller)authenticatedUser);
             } else if (authenticatedUser instanceof Buyer) {
                 System.out.println("Hello customer!");
                 new CustomerGUI(createAccountFrame);

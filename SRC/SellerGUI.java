@@ -15,9 +15,9 @@ public class SellerGUI {
      *
      * @param loginFrame the login frame to hide
      */
-    public SellerGUI(JFrame loginFrame,Seller userSeller ) {
+    public SellerGUI(JFrame loginFrame, Seller userSeller ) {
         createAndShowSellerGUI(loginFrame, userSeller);
-        inventory = userSeller.getInventory();
+        this.inventory = userSeller.getInventory();
     }
 
     /**

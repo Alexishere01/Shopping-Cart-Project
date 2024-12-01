@@ -7,9 +7,9 @@ import java.util.Map;
 
 public class Inventory implements Iterable<Map.Entry<Product, Integer>> {
     private Map<Product, Integer> inventory = new HashMap<>();
-    private DefaultTableModel tableModel;
-    private JTable table;
-    private JScrollPane scrollPane;
+    private transient DefaultTableModel tableModel;
+    private transient JTable table;
+    private transient JScrollPane scrollPane;
 
     public Inventory() {
         // Initialize JTable for inventory display
