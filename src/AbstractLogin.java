@@ -5,8 +5,8 @@ public abstract class AbstractLogin {
     abstract void getUserInput();
     abstract void checkUserType();
     public final void completeLogin(){
-        authenticate();
         getUserInput();
+        authenticate();
         checkUserType();
     }
 }

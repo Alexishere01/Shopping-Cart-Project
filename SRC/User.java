@@ -117,4 +117,16 @@ public class User implements Serializable {
             e.printStackTrace();
         }
     }
+    public static void printAllUsers() {
+        loadUsers(); // Load users from file
+    
+        if (VALID_USERS == null || VALID_USERS.isEmpty()) {
+            System.out.println("No users found.");
+        } else {
+            System.out.println("All Users:");
+            for (User user : VALID_USERS) {
+                System.out.println("Username: " + user.getUsername() + ", Password: " + user.getPassword());
+            }
+        }
+    }
 }

@@ -76,6 +76,7 @@ public class LoginGUITM extends AbstractLogin {
             createAccountGUI = new CreateAccountGUI(this);
         }
         createAccountGUI.showScreen();
+        
     }
 
     @Override
