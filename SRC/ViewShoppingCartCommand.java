@@ -20,7 +20,7 @@ public class ViewShoppingCartCommand implements Command {
     @Override
     public void execute() {
         JFrame cartFrame = new JFrame("Your Shopping Cart");
-        cartFrame.setSize(400, 100);
+        cartFrame.setSize(400, 200);
         cartFrame.setLocationRelativeTo(null);
 
         // Show the cart items in a table.

@@ -69,13 +69,14 @@ public class CustomerGUI {
         // Checkout button
         JButton checkoutButton = new JButton("Checkout");
         buttonsPanel.add(checkoutButton);
+        CheckoutCommand checkoutCommand = new CheckoutCommand(shoppingCart, inventory);
         checkoutButton.addActionListener(new ActionListener() {
             /**
              * Checkout Button
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Checkout pressed");
+                checkoutCommand.execute();
             }
         });
 

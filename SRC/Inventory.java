@@ -9,7 +9,7 @@ import java.util.Map;
 public class Inventory implements Serializable, Iterable<Map.Entry<Product, Integer>> {
     private static final long serialVersionUID = 1L;
 
-    // Singleton, beacuse there is only one inventory.
+    // Singleton, because there is only one inventory.
     private static Inventory instance;
 
     private Map<Product, Integer> inventory = new HashMap<>();
@@ -142,7 +142,6 @@ public class Inventory implements Serializable, Iterable<Map.Entry<Product, Inte
             if (newQuantity > 0) {
                 inventory.put(product, newQuantity);
                 updateTable(product);
-                System.out.println("updated quantity");
             } else {
                 removeProduct(product);
             }
