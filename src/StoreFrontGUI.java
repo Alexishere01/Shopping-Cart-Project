@@ -12,14 +12,14 @@ import java.awt.event.ActionListener;
  * Allows customers to view products, manage their shopping cart, checkout, and logout.
  *
  */
-public class StoreFrontGUI {
+public class CustomerGUI {
     private Warehouse warehouse;
     /**
      * Constructs and displays the customer's GUI
      *
      * @param loginFrame the login frame to hide
      */
-    public StoreFrontGUI(JFrame loginFrame) {
+    public CustomerGUI(JFrame loginFrame) {
         this.warehouse = warehouse.getInstance();
         createAndShowCustomerGUI(loginFrame);
     }
@@ -65,11 +65,12 @@ public class StoreFrontGUI {
         JButton checkoutButton = new JButton("Checkout");
         buttonsPanel.add(checkoutButton);
         checkoutButton.addActionListener(new ActionListener() {
-            
+            /**
+             * Checkout Button
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Checkout pressed");
-                new CheckoutGUI();
             }
         });
 

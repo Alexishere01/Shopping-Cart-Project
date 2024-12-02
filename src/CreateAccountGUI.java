@@ -131,7 +131,7 @@ public class CreateAccountGUI extends AbstractLogin {
                 new SellerGUI(createAccountFrame, (Seller)authenticatedUser);
             } else if (authenticatedUser instanceof Buyer) {
                 System.out.println("Hello customer!");
-                new StoreFrontGUI(createAccountFrame);
+                new CustomerGUI(createAccountFrame);
             }
         }
     }
