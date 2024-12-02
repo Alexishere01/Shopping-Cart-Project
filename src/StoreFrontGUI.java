@@ -2,59 +2,95 @@ package src;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 /**
+ * CustomerGUI.java
  *
- * @author ausgood
+ * Represents the customer's interface within the application.
+ * Allows customers to view products, manage their shopping cart, checkout, and logout.
+ *
  */
-public class StoreFront {
-    private ShoppingCart cart;
-    
-    public StoreFront() {
-        this.cart = new ShoppingCart();
-        createAndShowCheckoutGUI();
-    }
-    
-    // Creates and displays checkout GUI
-    private void createAndShowCheckoutGUI() {
-        JFrame frame = new JFrame("Checkout Screen");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(400, 300);
-        frame.setLocationRelativeTo(null);
-
-        JPanel panel = new JPanel(new GridLayout(3, 1, 10, 10));
-
-        // Confirm Checkout Button
-        JButton confirmButton = new JButton("Confirm Checkout");
-        confirmButton.addActionListener(e -> {
-            Command command = new ConfirmCheckoutCommand(cart);
-            command.execute();
-        });
-
-        // Apply Discount Button
-        JButton discountButton = new JButton("Apply Discount");
-        discountButton.addActionListener(e -> {
-            Command command = new ApplyDiscountCommand();
-            command.execute();
-        });
-
-        // Cancel Checkout Button
-        JButton cancelButton = new JButton("Cancel Checkout");
-        cancelButton.addActionListener(e -> {
-            Command command = new CancelCheckoutCommand();
-            command.execute();
-        });
-
-        // Add buttons to the panel
-        panel.add(confirmButton);
-        panel.add(discountButton);
-        panel.add(cancelButton);
-
-        frame.add(panel);
-        frame.setVisible(true);
+public class CustomerGUI {
+    private Warehouse warehouse;
+    /**
+     * Constructs and displays the customer's GUI
+     *
+     * @param loginFrame the login frame to hide
+     */
+    public CustomerGUI(JFrame loginFrame) {
+        this.warehouse = warehouse.getInstance();
+        createAndShowCustomerGUI(loginFrame);
     }
 
-    public static void main(String[] args) {
-        new StoreFront();
+    /**
+     * Constructs and displays the customer's GUI
+     *
+     * @param loginFrame the login frame to hide
+     */
+    private void createAndShowCustomerGUI(JFrame loginFrame) {
+        // Hide the login frame
+        loginFrame.setVisible(false);
+
+        // Create the main frame
+        JFrame customerFrame = new JFrame("Storefront");
+        customerFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        customerFrame.setSize(550, 400);
+        customerFrame.setLocationRelativeTo(null);
+
+        JPanel panel = new JPanel(new BorderLayout());
+
+        // Inventory
+        Inventory combinedInventory = warehouse.getCombinedInventory();
+        panel.add(combinedInventory.getScrollPane(), BorderLayout.CENTER);
+
+        // Create Buttons panel
+        JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
+
+        // View Shopping Cart button
+        JButton viewCartButton = new JButton("View Shopping Cart");
+        buttonsPanel.add(viewCartButton);
+        viewCartButton.addActionListener(new ActionListener() {
+            /**
+             * View shopping cart button
+             */
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("View Shopping Cart pressed");
+            }
+        });
+
+        // Checkout button
+        JButton checkoutButton = new JButton("Checkout");
+        buttonsPanel.add(checkoutButton);
+        checkoutButton.addActionListener(new ActionListener() {
+            /**
+             * Checkout Button
+             */
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Checkout pressed");
+            }
+        });
+
+        // Logout button
+        JButton logoutButton = new JButton("Logout");
+        buttonsPanel.add(logoutButton);
+        logoutButton.addActionListener(new ActionListener() {
+            /**
+             * Logout Button
+             */
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                customerFrame.dispose();
+                loginFrame.setVisible(true);
+            }
+        });
+
+        panel.add(buttonsPanel, BorderLayout.SOUTH);
+
+        customerFrame.add(panel);
+        customerFrame.setVisible(true);
     }
 }
-
