@@ -110,6 +110,17 @@ public class Inventory implements Serializable, Iterable<Map.Entry<Product, Inte
         }
     }
 
+    // Find the actual product instance based on the name
+    public Product getProductByName(String name) {
+        for (Product p : inventory.keySet()) {
+            if (p.getName().equals(name)) {
+                return p;
+            }
+        }
+        return null;
+    }
+
+
     private void removeProductFromTable(Product product) {
         for (int i = 0; i < tableModel.getRowCount(); i++) {
             String productName = (String) tableModel.getValueAt(i, 0);
@@ -131,6 +142,7 @@ public class Inventory implements Serializable, Iterable<Map.Entry<Product, Inte
             if (newQuantity > 0) {
                 inventory.put(product, newQuantity);
                 updateTable(product);
+                System.out.println("updated quantity");
             } else {
                 removeProduct(product);
             }
