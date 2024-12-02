@@ -2,59 +2,61 @@ package src;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+
 /**
  *
  * @author ausgood
  */
 public class CheckoutGUI {
-    private ShoppingCart cart;
+    private JFrame checkoutFrame;
     
-    public CheckoutGUI() {
-        this.cart = new ShoppingCart();
-        createAndShowCheckoutGUI();
+    public CheckoutGUI(int orderID, Customer customer, ArrayList<Product> purchasedItems, double totalAmount) {
+        super(OrderID, customer, purchasedItems, totalAmount);
     }
     
-    // Creates and displays checkout GUI
-    private void createAndShowCheckoutGUI() {
-        JFrame frame = new JFrame("Checkout Screen");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(400, 300);
-        frame.setLocationRelativeTo(null);
+    public void displayCheckout() {
+        if (checkoutFrame == null) {
+           checkoutFrame = new JFrame("Checkout Screen");
+           checkoutFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+           checkoutFrame.setSize(400, 300);
+           checkoutFrame.setLocationRelativeTo(null); 
+           
+           JPanel panel = new JPanel(new GridLayout(3, 1, 10, 10));
+           
+           JButton confirmButton = new JButton("Confirm Checkout");
+           confirmButton.addActionListener(e -> {
+               Command command = new ConfirmCheckoutCommand(this);
+               command.execute();
+           });
+           
+           JButton discountButton = new JButton("Apply Discount");
+           discountButton.addActionListener(e -> {
+               Command command = new ApplyDiscountCommand(this);
+               command.execute();
+           }); 
+           
+           JButton cancelButton = new JButton("Cancel Checkout");
+           cancelButton.addActionListener(e -> {
+               Command command = new CancelCheckoutCommand();
+               command.execute();
+               hideCheckout(); // Hide the GUI after canceling
+           });
 
-        JPanel panel = new JPanel(new GridLayout(3, 1, 10, 10));
+            // Add buttons to the panel
+           panel.add(confirmButton);
+           panel.add(discountButton);
+           panel.add(cancelButton);
 
-        // Confirm Checkout Button
-        JButton confirmButton = new JButton("Confirm Checkout");
-        confirmButton.addActionListener(e -> {
-            Command command = new ConfirmCheckoutCommand(cart);
-            command.execute();
-        });
-
-        // Apply Discount Button
-        JButton discountButton = new JButton("Apply Discount");
-        discountButton.addActionListener(e -> {
-            Command command = new ApplyDiscountCommand();
-            command.execute();
-        });
-
-        // Cancel Checkout Button
-        JButton cancelButton = new JButton("Cancel Checkout");
-        cancelButton.addActionListener(e -> {
-            Command command = new CancelCheckoutCommand();
-            command.execute();
-        });
-
-        // Add buttons to the panel
-        panel.add(confirmButton);
-        panel.add(discountButton);
-        panel.add(cancelButton);
-
-        frame.add(panel);
-        frame.setVisible(true);
+           checkoutFrame.add(panel);
+        }
+        
+        checkoutFrame.setVisible(true);
     }
-
-    public static void main(String[] args) {
-        new CheckoutGUI();
+    
+    public void hideCheckout() {
+        if (checkoutFrame != null) {
+            checkoutFrame.setVisible(false);
+        }
     }
 }
-
