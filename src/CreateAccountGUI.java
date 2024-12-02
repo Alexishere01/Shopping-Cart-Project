@@ -7,10 +7,10 @@ public class CreateAccountGUI extends AbstractLogin {
     private JFrame createAccountFrame;
     private JTextField userField;
     private JPasswordField passField;
-    private JCheckBox checkBox; // Declare the checkbox at the class level
+    private JCheckBox checkBox; 
     private LoginGUITM loginGUITM;
-    private User authenticatedUser; // Declare authenticatedUser at the class level
-
+    private User authenticatedUser; 
+    
     public CreateAccountGUI(LoginGUITM loginGUITM) {
         this.loginGUITM = loginGUITM;
         createAndShowCreateAccountGUI();

@@ -34,7 +34,7 @@ public class CustomerGUI {
         loginFrame.setVisible(false);
 
         // Create the main frame
-        JFrame customerFrame = new JFrame("Customer Screen");
+        JFrame customerFrame = new JFrame("Storefront");
         customerFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         customerFrame.setSize(550, 400);
         customerFrame.setLocationRelativeTo(null);

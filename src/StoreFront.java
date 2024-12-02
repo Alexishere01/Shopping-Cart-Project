@@ -6,10 +6,10 @@ import java.awt.*;
  *
  * @author ausgood
  */
-public class CheckoutGUI {
+public class StoreFront {
     private ShoppingCart cart;
     
-    public CheckoutGUI() {
+    public StoreFront() {
         this.cart = new ShoppingCart();
         createAndShowCheckoutGUI();
     }
@@ -33,7 +33,7 @@ public class CheckoutGUI {
         // Apply Discount Button
         JButton discountButton = new JButton("Apply Discount");
         discountButton.addActionListener(e -> {
-            Command command = new ApplyDiscountCommand(cart);
+            Command command = new ApplyDiscountCommand();
             command.execute();
         });
 
@@ -54,7 +54,7 @@ public class CheckoutGUI {
     }
 
     public static void main(String[] args) {
-        new CheckoutGUI();
+        new StoreFront();
     }
 }
 
