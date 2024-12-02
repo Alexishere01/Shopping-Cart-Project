@@ -1,5 +1,8 @@
 package src;
-
+/**
+ *
+ * @author ausgood
+ */
 import java.util.HashMap;
 import java.util.Map;
 
