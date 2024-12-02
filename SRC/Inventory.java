@@ -9,7 +9,7 @@ import java.util.Map;
 public class Inventory implements Serializable, Iterable<Map.Entry<Product, Integer>> {
     private static final long serialVersionUID = 1L;
 
-    // Singleton, beacuse there is only one inventory.
+    // Singleton, because there is only one inventory.
     private static Inventory instance;
 
     private Map<Product, Integer> inventory = new HashMap<>();
@@ -109,6 +109,17 @@ public class Inventory implements Serializable, Iterable<Map.Entry<Product, Inte
             }
         }
     }
+
+    // Find the actual product instance based on the name
+    public Product getProductByName(String name) {
+        for (Product p : inventory.keySet()) {
+            if (p.getName().equals(name)) {
+                return p;
+            }
+        }
+        return null;
+    }
+
 
     private void removeProductFromTable(Product product) {
         for (int i = 0; i < tableModel.getRowCount(); i++) {

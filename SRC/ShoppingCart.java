@@ -36,6 +36,13 @@ public class ShoppingCart {
         }
     }
 
+    // Clear shopping cart. used after the customer buys something, their cart must be cleared
+    public void clearCart() {
+        cartItems.clear();
+        System.out.println("Shopping cart has been cleared.");
+    }
+
+
     // retrieves product information
     public String getProductInfo() {
         StringBuilder info = new StringBuilder("Cart Items:\n");

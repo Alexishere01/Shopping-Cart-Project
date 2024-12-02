@@ -19,12 +19,11 @@ public class ViewShoppingCartCommand implements Command {
 
     @Override
     public void execute() {
-        // Create a new JFrame to display the cart
-        JFrame cartFrame = new JFrame("Shopping Cart");
-        cartFrame.setSize(600, 400);
+        JFrame cartFrame = new JFrame("Your Shopping Cart");
+        cartFrame.setSize(400, 200);
         cartFrame.setLocationRelativeTo(null);
 
-        // Create a table to display cart items
+        // Show the cart items in a table.
         String[] columnNames = {"Product Name", "Description", "Price", "Quantity", "Total"};
         DefaultTableModel cartTableModel = new DefaultTableModel(columnNames, 0) {
             @Override
@@ -34,11 +33,12 @@ public class ViewShoppingCartCommand implements Command {
         };
         JTable cartTable = new JTable(cartTableModel);
 
-        // Populate the table with cart items
+        // In the table, add all the items currently in the shopping cart
         for (Map.Entry<Product, Integer> entry : shoppingCart.getCartItemsMap().entrySet()) {
             Product product = entry.getKey();
             int quantity = entry.getValue();
             double total = product.getPrice() * quantity;
+
             cartTableModel.addRow(new Object[]{
                     product.getName(),
                     product.getDescription(),

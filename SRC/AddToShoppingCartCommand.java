@@ -3,6 +3,7 @@ package src;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.util.Map;
 
 public class AddToShoppingCartCommand implements Command {
     private Inventory inventory;
@@ -80,18 +81,22 @@ public class AddToShoppingCartCommand implements Command {
             return;
         }
 
-        // Create the Product object
-        Product selectedProduct = new Product(productName, productDescription, productPrice);
+        // **Retrieve the existing Product from Inventory**
+        Product existingProduct = inventory.getProductByName(productName);
+        if (existingProduct == null) {
+            JOptionPane.showMessageDialog(null, "Selected product does not exist in the inventory.");
+            return;
+        }
 
         // Add to ShoppingCart
-        boolean added = shoppingCart.addProduct(selectedProduct, quantityToAdd);
+        boolean added = shoppingCart.addProduct(existingProduct, quantityToAdd);
         if (!added) {
             JOptionPane.showMessageDialog(null, "Failed to add product to cart.");
             return;
         }
 
         // Update Inventory
-        inventory.updateProductQuantity(selectedProduct, availableQuantity - quantityToAdd);
+        inventory.updateProductQuantity(existingProduct, availableQuantity - quantityToAdd);
 
         JOptionPane.showMessageDialog(null, "Added " + quantityToAdd + " of " + productName + " to the cart.");
     }
