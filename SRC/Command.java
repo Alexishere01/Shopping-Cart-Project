@@ -1,6 +1,11 @@
 package src;
 
 /**
+ *
+ * @author ausgood
+ */
+
+/**
  * Command interface for the Command Pattern.
  * 
  */

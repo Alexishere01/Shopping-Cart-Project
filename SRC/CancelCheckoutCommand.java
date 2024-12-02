@@ -1,6 +1,11 @@
 package src;
 
 /**
+ *
+ * @author ausgood
+ */
+
+/**
  * Command to cancel the checkout process.
  * Clears the cart or resets the checkout state as needed.
  */
