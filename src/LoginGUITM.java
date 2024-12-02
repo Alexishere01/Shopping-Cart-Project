@@ -107,7 +107,7 @@ public class LoginGUITM extends AbstractLogin {
                 new SellerGUI(loginFrame, (Seller) authenticatedUser);
             } else if (authenticatedUser instanceof Buyer) {
                 System.out.println("Hello customer!");
-                new CustomerGUI(loginFrame);
+                new StoreFrontGUI(loginFrame);
             }
         }
     }
