@@ -1,6 +1,11 @@
 package src;
 
 /**
+ *
+ * @author ausgood
+ */
+
+/**
  * Command to confirm the checkout process.
  * Finalizes the user's order and performs necessary actions.
  */
