@@ -6,10 +6,10 @@ import java.awt.*;
  *
  * @author ausgood
  */
-public class StoreFrontGUI {
+public class CheckoutGUI {
     private ShoppingCart cart;
     
-    public StoreFrontGUI() {
+    public CheckoutGUI() {
         this.cart = new ShoppingCart();
         createAndShowCheckoutGUI();
     }
@@ -54,7 +54,7 @@ public class StoreFrontGUI {
     }
 
     public static void main(String[] args) {
-        new StoreFrontGUI();
+        new CheckoutGUI();
     }
 }
 
