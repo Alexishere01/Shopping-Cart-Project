@@ -9,11 +9,13 @@ public class DiscountedProduct extends Product{
     private int productID;
     private double price;
     private String productName;
+    private String description;
     private int discount;
     
-    public DiscountedProduct(String productName, double price, int discount ){
+    public DiscountedProduct(String productName, String description, double price, int discount ){
         this.productName = productName;
         this.price = calculateDiscountedPrice(price, discount);
+        this.description = description;
         //productID is hascode of both name and price
     }
     
@@ -32,12 +34,17 @@ public class DiscountedProduct extends Product{
     }
 
     @Override
+    public String getDescription() {
+        return description;
+    }
+
+    @Override
     public String getName() {
         return productName;
     }
     
     public String toString(){
-        return "{"+productID+price+productName+"}";
+        return "{"+productID+description+price+productName+"}";
     }
     
 }

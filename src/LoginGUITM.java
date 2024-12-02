@@ -102,15 +102,17 @@ public class LoginGUITM extends AbstractLogin {
     void checkUserType() {
         System.out.println("Checking User Type...");
         if (authenticatedUser != null) {
+
             if (authenticatedUser instanceof Seller) {
-                System.out.println("Hello seller!");
+                System.out.println("Hello seller!11");
                 new SellerGUI(loginFrame, (Seller) authenticatedUser);
             } else if (authenticatedUser instanceof Buyer) {
-                System.out.println("Hello customer!");
+                System.out.println("Hello customer!11");
                 new CustomerGUI(loginFrame);
             }
         }
     }
+
 
     public void showScreen() {
         loginFrame.setVisible(true);

@@ -8,56 +8,61 @@ import java.awt.event.ActionListener;
 /**
  * CustomerGUI.java
  *
- * Represents the customer's interface within the application.
- * Allows customers to view products, manage their shopping cart, checkout, and logout.
  *
+ * @author Ryan, Alex
  */
 public class CustomerGUI {
-    private Warehouse warehouse;
-    /**
-     * Constructs and displays the customer's GUI
-     *
-     * @param loginFrame the login frame to hide
-     */
+    private ShoppingCart shoppingCart;
+
     public CustomerGUI(JFrame loginFrame) {
-        this.warehouse = warehouse.getInstance();
+        this.shoppingCart = new ShoppingCart();
         createAndShowCustomerGUI(loginFrame);
     }
 
-    /**
-     * Constructs and displays the customer's GUI
-     *
-     * @param loginFrame the login frame to hide
-     */
+    // Create and show GUI
     private void createAndShowCustomerGUI(JFrame loginFrame) {
-        // Hide the login frame
         loginFrame.setVisible(false);
 
-        // Create the main frame
+        // Create main frame
         JFrame customerFrame = new JFrame("Storefront");
         customerFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        customerFrame.setSize(550, 400);
+        customerFrame.setSize(750, 400);
         customerFrame.setLocationRelativeTo(null);
 
         JPanel panel = new JPanel(new BorderLayout());
 
-        // Inventory
-        Inventory combinedInventory = warehouse.getCombinedInventory();
-        panel.add(combinedInventory.getScrollPane(), BorderLayout.CENTER);
+        // Use shared inventory instance
+        Inventory inventory = Inventory.getInstance();
+        panel.add(inventory.getScrollPane(), BorderLayout.CENTER);
 
         // Create Buttons panel
         JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
 
-        // View Shopping Cart button
-        JButton viewCartButton = new JButton("View Shopping Cart");
-        buttonsPanel.add(viewCartButton);
-        viewCartButton.addActionListener(new ActionListener() {
+        // Add to Shopping Cart button
+        JButton addToCartButton = new JButton("Add to Shopping Cart");
+        buttonsPanel.add(addToCartButton);
+        AddToShoppingCartCommand addToCartCommand = new AddToShoppingCartCommand(inventory, shoppingCart);
+        addToCartButton.addActionListener(new ActionListener() {
             /**
-             * View shopping cart button
+             * Add to Shopping Cart Button
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("View Shopping Cart pressed");
+                addToCartCommand.execute();
+            }
+        });
+
+        // View Shopping Cart button
+        JButton viewCartButton = new JButton("View Shopping Cart");
+        buttonsPanel.add(viewCartButton);
+        ViewShoppingCartCommand viewCartCommand = new ViewShoppingCartCommand(shoppingCart);
+        viewCartButton.addActionListener(new ActionListener() {
+            /**
+             * View Shopping Cart Button
+             */
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                viewCartCommand.execute();
             }
         });
 

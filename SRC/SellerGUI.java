@@ -7,25 +7,19 @@ import java.awt.event.ActionListener;
 
 /**
  * SellerGUI.java
+ *
+ * @author Ryan, Alex
  */
 public class SellerGUI {
     private Inventory inventory;
-    /**
-     * Constructs and displays the seller's GUI
-     *
-     * @param loginFrame the login frame to hide
-     */
-    public SellerGUI(JFrame loginFrame, Seller userSeller ) {
+
+    public SellerGUI(JFrame loginFrame, Seller userSeller) {
+        this.inventory = Inventory.getInstance();
         createAndShowSellerGUI(loginFrame, userSeller);
-        this.inventory = userSeller.getInventory();
     }
 
-    /**
-     * Creates and displays the seller's GUI
-     *
-     * @param loginFrame the login frame to hide
-     */
-    private void createAndShowSellerGUI(JFrame loginFrame,Seller userSeller) {
+    // Construct seller GUI & display
+    private void createAndShowSellerGUI(JFrame loginFrame, Seller userSeller) {
         // Hide the login frame
         loginFrame.setVisible(false);
 
@@ -36,14 +30,10 @@ public class SellerGUI {
         sellerFrame.setLocationRelativeTo(null);
 
         JPanel panel = new JPanel(new BorderLayout());
-        
-        if (userSeller.getInventory() != null) {
-            panel.add(userSeller.getInventory().getScrollPane(), BorderLayout.CENTER);
-        } else {
-            System.out.println("Error: Inventory is null for seller " + userSeller.getUsername());
-            // Handle the situation if inventory is null (e.g., show a message or create a new inventory)
-        }
-        // Create buttons panel
+
+        panel.add(inventory.getScrollPane(), BorderLayout.CENTER);
+
+        // Buttons panel
         JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
 
         // Add Product button
@@ -55,7 +45,8 @@ public class SellerGUI {
              */
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Add Product pressed");
+                Command addProductCommand = new AddProductCommand(inventory);
+                addProductCommand.execute();
             }
         });
 

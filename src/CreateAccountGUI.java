@@ -3,6 +3,10 @@ package src;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+*
+* @author Alex
+ */
 public class CreateAccountGUI extends AbstractLogin {
     private JFrame createAccountFrame;
     private JTextField userField;
@@ -125,16 +129,18 @@ public class CreateAccountGUI extends AbstractLogin {
     @Override
     void checkUserType() {
         if (authenticatedUser != null) {
-            // Redirect to respective GUI or login screen
+            //Inventory sharedInventory = new Inventory();
+
             if (authenticatedUser instanceof Seller) {
                 System.out.println("Hello seller!");
-                new SellerGUI(createAccountFrame, (Seller)authenticatedUser);
+                new SellerGUI(createAccountFrame, (Seller) authenticatedUser);
             } else if (authenticatedUser instanceof Buyer) {
                 System.out.println("Hello customer!");
                 new CustomerGUI(createAccountFrame);
             }
         }
     }
+
 
     public void showScreen() {
         createAccountFrame.setVisible(true);
