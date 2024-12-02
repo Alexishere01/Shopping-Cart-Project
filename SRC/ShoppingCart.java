@@ -1,24 +1,30 @@
 package src;
-/**
- *
- * @author ausgood
- */
+
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
+/**
+ *
+ * @author ausgood, Ryan
+ */
 public class ShoppingCart {
     private Map<Product, Integer> cartItems;
-    
+
     public ShoppingCart() {
         this.cartItems = new HashMap<>();
     }
-    
+
     // if product exists in the cart already, quantity increases
-    public void addProduct(Product product, int quantity) {
+    public boolean addProduct(Product product, int quantity) {
+        if (quantity <= 0) {
+            return false;
+        }
         cartItems.put(product, cartItems.getOrDefault(product, 0) + quantity);
+        return true;
     }
-    
-    // removes a specific quantity of a product from the cart 
+
+    // removes a specific quantity of a product from the cart
     public void removeProduct(Product product, int quantity) {
         if (cartItems.containsKey(product)) {
             int updatedQuantity = cartItems.get(product) - quantity;
@@ -29,7 +35,7 @@ public class ShoppingCart {
             }
         }
     }
-    
+
     // retrieves product information
     public String getProductInfo() {
         StringBuilder info = new StringBuilder("Cart Items:\n");
@@ -43,7 +49,7 @@ public class ShoppingCart {
         }
         return info.toString();
     }
-    
+
     // calculates the total price of all of the items in the cart
     public double calculateTotal() {
         double total = 0;
@@ -54,17 +60,17 @@ public class ShoppingCart {
         }
         return total;
     }
-    
+
     // gets all cart items as an array of Products
     public Product[] getCartItems() {
         return cartItems.keySet().toArray(new Product[0]);
     }
-    
+
     // gets sum of the cart
     public double getPrice() {
         return calculateTotal();
     }
-    
+
     public String getName() {
         StringBuilder names = new StringBuilder("Products: ");
         for (Product product : cartItems.keySet()) {
@@ -75,5 +81,23 @@ public class ShoppingCart {
             names.delete(names.length() - 2, names.length());
         }
         return names.toString();
+    }
+
+    public Map<Product, Integer> getCartItemsMap() {
+        return new HashMap<>(cartItems);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ShoppingCart that = (ShoppingCart) o;
+        return Objects.equals(cartItems, that.cartItems);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(cartItems);
     }
 }

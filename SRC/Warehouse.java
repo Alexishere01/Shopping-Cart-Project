@@ -21,27 +21,27 @@ public class Warehouse {
         }
         return instancWarehouse;
     }
-    public void addInventory(Inventory inventory) {
-        warehouse.add(inventory);
-    }
-
-    public void removeInventory(Inventory inventory) {
-        warehouse.remove(inventory);
-    }
-
-    public Inventory getCombinedInventory() {
-        Inventory combinedInventory = new Inventory();
-        for (Inventory inventory : warehouse) {
-            for (Map.Entry<Product, Integer> entry : inventory) {
-                combinedInventory.addProduct(entry.getKey(), entry.getValue());
-            }
-        }
-        return combinedInventory;
-    }
-    
-
-
-    public List<Inventory> getAllInventories() {
-        return warehouse;
-    }
+//    public void addInventory(Inventory inventory) {
+//        warehouse.add(inventory);
+//    }
+//
+//    public void removeInventory(Inventory inventory) {
+//        warehouse.remove(inventory);
+//    }
+//
+//    public Inventory getCombinedInventory() {
+//        Inventory combinedInventory = new Inventory();
+//        for (Inventory inventory : warehouse) {
+//            for (Map.Entry<Product, Integer> entry : inventory) {
+//                combinedInventory.addProduct(entry.getKey(), entry.getValue());
+//            }
+//        }
+//        return combinedInventory;
+//    }
+//
+//
+//
+//    public List<Inventory> getAllInventories() {
+//        return warehouse;
+//    }
 }

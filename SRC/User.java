@@ -8,8 +8,11 @@ import java.util.List;
  * User.java
  *
  * Handles authentication & logging in, as well as stores users
+ *
+ * @author Ryan, Alex
  */
 public class User implements Serializable {
+    @Serial
     private static final long serialVersionUID = 1L;
 
     private String username;
@@ -18,7 +21,6 @@ public class User implements Serializable {
     private static List<User> VALID_USERS = new ArrayList<>();
 
     static {
-        // Load existing users from file
         loadUsers();
     }
 
@@ -52,7 +54,7 @@ public class User implements Serializable {
     }
 
     /**
-     * Checks if this user is equal to another user.
+     * Checks if this user is equal to another user
      *
      * @param obj the object to compare with this user
      * @return {@code true} if the specified object is equal to this user; else {@code false}
@@ -69,10 +71,10 @@ public class User implements Serializable {
     }
 
     /**
-     * Validates the user credentials against the list of valid users.
+     * Validates the user credentials against the list of valid users
      *
-     * @param username the username entered by the user
-     * @param password the password entered by the user
+     * @param username the username
+     * @param password the password
      * @return the User object if credentials are valid; else {@code null}
      */
     public static User validateUser(String username, String password) {
@@ -94,9 +96,7 @@ public class User implements Serializable {
         saveUsers();
     }
 
-    /**
-     * Loads users from the users.dat file.
-     */
+    // load from users.dat
     private static void loadUsers() {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("users.dat"))) {
             VALID_USERS = (List<User>) ois.readObject();
@@ -107,9 +107,7 @@ public class User implements Serializable {
         }
     }
 
-    /**
-     * Saves users to the users.dat file.
-     */
+    // save to users.dat
     private static void saveUsers() {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("users.dat"))) {
             oos.writeObject(VALID_USERS);
@@ -118,7 +116,6 @@ public class User implements Serializable {
         }
     }
     public static void printAllUsers() {
-        // Ensure we load the latest users from the file
         loadUsers();
 
         if (VALID_USERS == null || VALID_USERS.isEmpty()) {
@@ -127,7 +124,7 @@ public class User implements Serializable {
             System.out.println("All Users:");
             for (User user : VALID_USERS) {
                 String userType = user instanceof Seller ? "Seller" : "Buyer";
-                System.out.println("Username: " + user.getUsername() + ", Type: " + userType);
+                System.out.println("Username: " + user.getUsername() + " Password:" + user.getPassword() + ", Type: " + userType);
             }
         }
     }
